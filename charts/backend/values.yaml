@@ -8,3 +8,11 @@ service:
 db:
   password: "your-db-password"
   name: "your-db-name"
+
+resources:
+  requests:
+    memory: "256Mi"
+    cpu: "250m"
+  limits:
+    memory: "512Mi"
+    cpu: "500m"
