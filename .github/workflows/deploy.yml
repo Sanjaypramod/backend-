@@ -32,14 +32,13 @@ jobs:
         run: |
           aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 476356830795.dkr.ecr.ap-south-1.amazonaws.com
 
-      - name: Build and push backend Docker image with version number
+      - name: Build and push backend Docker image
         run: |
-          IMAGE_TAG="v1.0.${{ github.run_number }}"  # Use GitHub run number as version
-          docker build -t 476356830795.dkr.ecr.ap-south-1.amazonaws.com/backend:$IMAGE_TAG .
-          docker push 476356830795.dkr.ecr.ap-south-1.amazonaws.com/backend:$IMAGE_TAG
+          docker build -t 476356830795.dkr.ecr.ap-south-1.amazonaws.com/backend:$GITHUB_SHA .
+          docker push 476356830795.dkr.ecr.ap-south-1.amazonaws.com/backend:$GITHUB_SHA
 
       - name: Deploy backend to Kubernetes using Helm
         run: |
           helm upgrade --install backend ./charts/backend \
             --namespace backend-namespace \
-            --set image.tag=$IMAGE_TAG  # Pass the custom build version
+            --set image.tag=$GITHUB_SHA  # Use the dynamically set tag from GitHub Actions
