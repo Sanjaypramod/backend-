@@ -1,0 +1,10 @@
+replicaCount: 1
+image:
+  repository: your-docker-repo/backend
+  tag: latest
+service:
+  type: ClusterIP
+  port: 3000
+db:
+  password: "your-db-password"
+  name: "your-db-name"
