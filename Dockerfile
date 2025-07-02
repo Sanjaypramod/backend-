@@ -1,14 +1,18 @@
-# Copy the application code into the container
-COPY . /app
+# Use an appropriate base image for your application
+FROM node:14
 
-# Set the working directory to the location of the app
+# Set the working directory inside the container
 WORKDIR /app
 
-# Install dependencies
+# Copy the package.json and install dependencies first
+COPY package.json /app/
 RUN npm install
 
-# Expose the port
+# Copy the rest of the application code into the container
+COPY . /app
+
+# Expose the necessary port
 EXPOSE 3000
 
-# Command to run the app
-CMD ["node", "server.js"]
+# Command to run the application
+CMD ["node", "src/server.js"]
