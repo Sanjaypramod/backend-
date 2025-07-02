@@ -44,4 +44,4 @@ jobs:
           helm upgrade --install backend ./charts/backend \
             --namespace backend-namespace \
             --set image.repository=476356830795.dkr.ecr.ap-south-1.amazonaws.com/backend \
-            --set image.tag=$GITHUB_SHA  # Use the dynamically generated image tag
+            --set image.tag=$GITHUB_SHA  # Dynamically set the image tag using Git commit SHA
