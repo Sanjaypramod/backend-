@@ -41,4 +41,4 @@ jobs:
         run: |
           helm upgrade --install backend ./charts/backend \
             --namespace backend-namespace \
-            --set image.tag=$GITHUB_SHA  # Use the dynamically set tag from GitHub Actions
+            --set image.tag=$GITHUB_SHA  # Dynamically set the image tag using Git commit SHA
