@@ -37,10 +37,8 @@ jobs:
           docker build -t 476356830795.dkr.ecr.ap-south-1.amazonaws.com/backend:$GITHUB_SHA .
           docker push 476356830795.dkr.ecr.ap-south-1.amazonaws.com/backend:$GITHUB_SHA
 
-      - name: Create new namespace in Kubernetes
+      - name: Deploy backend to Kubernetes using Helm
         run: |
-          kubectl create namespace backend-namespace || echo "Namespace already exists"
-
-      - name: Deploy backend to Kubernetes using Helm in new namespace
-        run: |
-          helm upgrade --install backend ./charts/backend --namespace backend-namespace
+          helm upgrade --install backend ./charts/backend \
+            --namespace backend-namespace \
+            --set image.tag=$GITHUB_SHA
